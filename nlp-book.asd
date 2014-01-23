@@ -1,12 +1,12 @@
 #|
   This file is a part of nlp-book project.
-  Copyright (c) 2014 stibear
+  Copyright (c) 2014 stibear1996
 |#
 
 #|
   言語処理のための機械学習に掲載してあるもろもろを実装
 
-  Author: stibear
+  Author: stibear1996
 |#
 
 (in-package :cl-user)
@@ -16,9 +16,13 @@
 
 (defsystem nlp-book
   :version "0.1"
-  :author "stibear"
+  :author "stibear1996"
   :license "LLGPL"
-  :depends-on ()
+  :depends-on (:iterate
+	       :cl-annot
+	       :cl-syntax
+	       :cl-syntax-annot
+	       )
   :components ((:module "src"
                 :components
                 ((:file "package")
