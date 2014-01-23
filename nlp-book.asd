@@ -17,11 +17,21 @@
 (defsystem nlp-book
   :version "0.1"
   :author "stibear"
-  :license ""
+  :license "LLGPL"
   :depends-on ()
   :components ((:module "src"
                 :components
-                ((:file "nlp-book"))))
+                ((:file "package")
+		 (:module "util"
+		  :components
+		  ((:file "macro")
+		   (:file "vector"))
+		  :depends-on ("package"))
+		 (:module "core"
+		  :components
+		  ((:file "agglomerative"))
+		  :depends-on ("package" "util"))
+		 )))
   :description "言語処理のための機械学習に掲載してあるもろもろを実装"
   :long-description
   #.(with-open-file (stream (merge-pathnames
