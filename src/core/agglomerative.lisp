@@ -5,6 +5,9 @@
 
 (in-package :nlp-book)
 
+(cl-syntax:use-syntax :annot)
+
+@export
 (defun agglomerative (vector cluster-number similarity-function
 		      &optional (cluster-sim-func #'single-link))
   (let ((clusters (make-set vector)))
@@ -29,12 +32,27 @@
 	(setf clusters (delete (aref clusters y) clusters))))
     (map 'vector #'cdr clusters)))
 
+@export
 (defun single-link (cluster1 cluster2 sim-func)
   (iter (for i in cluster1)
     (finding
      (iter (for j in cluster2)
        (finding (funcall sim-func i j) maximizing j))
      maximizing i)))
+
+@export
+(defun complete-link (cluster1 cluster2 sim-func)
+  (iter (for i in cluster1)
+    (finding
+     (iter (for j in cluster2)
+       (finding (funcall sim-func i j) minimizing j))
+     minimizing i)))
+
+@export
+(defun centroid (cluster1 cluster2 sim-func)
+  (flet ((avr (list)
+	   (/ (reduce #'+ list) (list-length list))))
+    (funcall sim-func (avr cluster1) (avr cluster2))))
 
 (defun make-set (vector)
   (iter (for i below (array-dimension vector 0))

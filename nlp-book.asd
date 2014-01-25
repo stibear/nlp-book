@@ -33,7 +33,8 @@
 		  :depends-on ("package"))
 		 (:module "core"
 		  :components
-		  ((:file "agglomerative"))
+		  ((:file "agglomerative")
+		   (:file "k-means"))
 		  :depends-on ("package" "util"))
 		 )))
   :description "言語処理のための機械学習に掲載してあるもろもろを実装"
